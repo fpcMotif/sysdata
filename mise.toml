@@ -1,0 +1,30 @@
+[tools]
+zig = "0.17.0"
+
+[tasks.run]
+description = "Open SysData in the menu bar"
+run = ["zig build -Doptimize=ReleaseFast", "zig-out/bin/sysdata"]
+
+[tasks.window]
+description = "Open SysData as a normal window"
+run = ["zig build -Doptimize=ReleaseFast", "zig-out/bin/sysdata --window"]
+
+[tasks.fixture]
+description = "Open the window with fixed sample items"
+run = ["zig build", "zig-out/bin/sysdata --window --fixture"]
+
+[tasks.json]
+description = "Scan once and print the inventory as JSON"
+run = ["zig build -Doptimize=ReleaseFast", "zig-out/bin/sysdata --json"]
+
+[tasks.test]
+description = "Run the walker, probe, guard, model and reclaim tests"
+run = "zig build test"
+
+[tasks.check]
+description = "Formatting and a full test run"
+run = ["zig fmt --check .", "zig build test"]
+
+[tasks.bundle]
+description = "Build the release app bundle at zig-out/SysData Zig.app"
+run = "zig build -Doptimize=ReleaseFast bundle"
