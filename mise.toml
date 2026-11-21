@@ -1,0 +1,37 @@
+[tools]
+rust = { version = "1.98.1", profile = "minimal", components = ["rustfmt", "clippy"], mr_boxington = true }
+mr-boxington = "1.12.0"
+
+# The user's global generic wrapper otherwise finds an older Cargo-home mbx.
+[wrappers.cargo]
+command = "mise"
+args = ["exec", "mr-boxington@1.12.0", "--", "mbx"]
+env = { MBX_CARGO_SHIM_MODE = "1" }
+
+[tasks.run]
+description = "Open System Data in the menu bar"
+run = "cargo run --locked --release"
+
+[tasks.window]
+description = "Open System Data as a normal window"
+run = "cargo run --locked --release -- --window"
+
+[tasks.fixture]
+description = "Open the window with fixed sample items"
+run = "cargo run --locked -- --window --fixture"
+
+[tasks.json]
+description = "Scan once and print the inventory as JSON"
+run = "cargo run --locked --release -- --json"
+
+[tasks.test]
+description = "Run the walker, probe, reclaim, model and GPUI flow tests"
+run = "cargo test --locked --features test-support"
+
+[tasks.check]
+description = "Check formatting and Clippy"
+run = ["cargo fmt --check", "cargo clippy --locked --all-targets --features test-support -- -D warnings"]
+
+[tasks.bundle]
+description = "Build the release app bundle at target/System Data.app"
+run = ["cargo build --locked --release", "sh scripts/bundle.sh"]

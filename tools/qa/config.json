@@ -1,0 +1,22 @@
+{
+  "project": "sysdata",
+  "surface": "macos",
+  "choice": "Native project tests and desktop inspection; browser automation does not verify macOS UI",
+  "commands": {
+    "test": {
+      "argv": ["mise", "run", "test"]
+    },
+    "fixture": {
+      "argv": ["mise", "run", "fixture"]
+    },
+    "check": {
+      "argv": ["mise", "run", "check"]
+    },
+    "doctor": {
+      "argv": ["mise", "exec", "--", "mbx", "doctor"]
+    },
+    "harness:check": {
+      "argv": ["bun", "--no-env-file", "tools/qa/self-check.mjs"]
+    }
+  }
+}
